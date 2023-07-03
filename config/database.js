@@ -7,7 +7,8 @@ const pool = mysql.createPool({
     port:env.port,
     password:env.password,
     database:env.database,
-    connectionLimit: 30
+    connectionLimit: 30,
+    multipleStatements: true
 
 });
 
