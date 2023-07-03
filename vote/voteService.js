@@ -1,5 +1,5 @@
 import pool from "../config/database"
-import {selectTeamIdDao,insertCTVote,insertCloudingDefaultVote,insertEVote,insertDBToolVote,insertRVote,insertAPITVote,insertDBVote ,insertFrameVote,insertEditorDefaultVote,insertRemoteDefaultVote,insertAPISpecificationDefaultVote,insertDBToolDefaultVote,insertDBDefaultVote,insertBackendFrameworkDefaultVote,selectBackEndTool,insertBackEndTool,insertPackageDefaultVote,insertCSSDefaultVote,insertFrameworkDefaultVote,insertFrontTool,selectFrontTool,defaultvotefrontResult,insertDefaultVote,insertFVote, insertCVote,insertPVote} from "./voteDao"
+import {insertOptionDao,selectTeamIdDao,insertCTVote,insertCloudingDefaultVote,insertEVote,insertDBToolVote,insertRVote,insertAPITVote,insertDBVote ,insertFrameVote,insertEditorDefaultVote,insertRemoteDefaultVote,insertAPISpecificationDefaultVote,insertDBToolDefaultVote,insertDBDefaultVote,insertBackendFrameworkDefaultVote,selectBackEndTool,insertBackEndTool,insertPackageDefaultVote,insertCSSDefaultVote,insertFrameworkDefaultVote,insertFrontTool,selectFrontTool,defaultvotefrontResult,insertDefaultVote,insertFVote, insertCVote,insertPVote} from "./voteDao"
 export const createFrontvote = async(frameworkValue,CSSFrameworkValue,PackageMangerValue,board_id)=>{
 try{
     const connection = await pool.getConnection(async (conn) => conn);
@@ -87,9 +87,9 @@ export const createOption = async(Questionname,board_id,option)=>{
     try{
         const connection = await pool.getConnection(async (conn) => conn);
         const selectTeamId = await selectTeamIdDao(connection,Questionname,board_id);
-        console.log(selectTeamId[0].id);
-
-
+        const tool_id = selectTeamId[0].id;
+        const insertOption = await insertOptionDao(connection,option,tool_id,board_id)
+        return insertOption; 
         connection.release();
     }catch(err){
         console.log(err);
