@@ -19,6 +19,12 @@ export const insertFrontTool = async(connection,board_id)=>{
     return 0; 
 }
 
+export const insertOptionDao= async(connection,option,tool_id,board_id)=>{
+    const insertOptionDaoQuery = `insert into tool_option(option_name,votes,tool_id,board_id) values("${option}",0,${tool_id},${board_id});`;
+    const insertOptionDaoRow = await connection.query(insertOptionDaoQuery);
+    return 0;
+}
+
 export const selectAllVote = async(connection,board_id)=>{
 
     const selectAllVoteQuery = `select * from tool as t, tool_option as o where t.id = o.tool_id and o.board_id = ${board_id};`
