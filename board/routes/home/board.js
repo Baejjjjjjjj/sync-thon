@@ -8,6 +8,7 @@ router.get('/', output.board);
 router.post('/', process.write);
 router.post('/password', process.passwordConfirm);
 router.get('/search', output.search);
+router.get('/link/:id', output.boardLink)
 
 
 export default router;
