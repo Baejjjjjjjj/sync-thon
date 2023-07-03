@@ -3,6 +3,7 @@ import compression from "compression"
 import methodOverride from "method-override"
 import cors from "cors"
 import userRouter from "../user/userRouter";
+import voteRouter from "../vote/voteRouter";
 const app = express(); //express 객체를 만들어 준다.
 
 app.use(compression());
@@ -14,6 +15,7 @@ app.use(methodOverride());
 app.use(cors());
 
 app.use('/user',userRouter);
+app.use('/vote',voteRouter);
 
 
 export default app; 
