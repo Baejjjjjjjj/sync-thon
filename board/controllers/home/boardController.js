@@ -3,6 +3,7 @@
 const express = require('express');
 import Board from '../../models/Board';
 import Search from '../../models/Search';
+import Tools from '../../models/Tools';
 
 
 const output = {
@@ -16,6 +17,11 @@ const output = {
         const search = new Search();
         const searchRes = await search.searchData(req.query);
         res.json(searchRes);
+    },
+    boardLink : async (req, res) => {
+        const link = new Tools();
+        const boardLinkRes = await link.getToolsLink(req.params.id);
+        res.json(boardLinkRes);
     }
 };
 
