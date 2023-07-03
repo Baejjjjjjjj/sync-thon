@@ -122,7 +122,6 @@ export const GetUsers = async(req,res)=>{
 }
 
 export const GetUser = async(req,res)=>{
-   console.log("hello")
     const {user_id} = req.verifiedToken;
     const GetUserResult = await retrieveUser(user_id);
     return res.send(SUCCESSResponse(baseResponse.SUCCESS,GetUserResult))
