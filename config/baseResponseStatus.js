@@ -1,7 +1,9 @@
 const baseResponse = {
 
     SUCCESS : {"isSuccess": true, "code": 1000, "message": "성공"},
-    
+    TOKEN_EMPTY : { "isSuccess": false, "code": 1001, "message":"JWT 토큰을 입력해주세요." },
+    TOKEN_VERIFICATION_FAILURE : { "isSuccess": false, "code": 1002, "message":"JWT 토큰 검증 실패" },
+    TOKEN_VERIFICATION_SUCCESS : { "isSuccess": true, "code": 1003, "message":"JWT 토큰 검증 성공" }, // ?    
     ERR_EXAMPLE : {"isSuccess": false, "code": 2000, "message": "에러 발생 예시"},
 
     LOGIN_EMPTY_EMAIL: {"isSuccess": false, "code": 2001, "message": "LOGIN EMPTY EMAIL"},
@@ -15,6 +17,9 @@ const baseResponse = {
     SIGNUP_EMPTY_GITHUBID:{"isSuccess": false, "code": 2008, "message": "SIGNUP EMPTY GITHUBID"},
     SIGNUP_WRONG_LENGTH_PASSWORD:{"isSuccess": false, "code": 2009, "message": "비밀번호 자리수가 틀렸습니다. 4자리 비밀번호로 입력해주세요"},
     SIGNUP_EMPTY_BOARDID:{"isSuccess": false, "code": 2010, "message": "BOARD_ID가 넘어오지 않았습니다."},
+
+
+
 }
 
 export default baseResponse;
