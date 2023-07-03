@@ -8,8 +8,11 @@ const output = {
     board : async (req, res) => {
         const board = new Board();
         const boardList = await board.getBoardList();
-        console.log(boardRes);
+        console.log(boardList);
         res.json(res.data);
+    },
+    boardDetail : async (req, res) => {
+        
     }
 };
 
@@ -18,7 +21,13 @@ const process = {
     write : async(req, res) => {
         const board = new Board();
         const boardWriteRes = await board.write(req.body);
-
+        console.log(boardWriteRes);
+        res.send({ success : 200 });
+    },
+    passwordConfirm : async(req, res) => {
+        const board = new Board();
+        const boardPassRes = await board.passwordConfirm(req.body);
+        res.send(boardPassRes);
     }
 };
 
