@@ -7,7 +7,7 @@ export const insertUser= async(connection,insertUserParams)=>{
 
 export const selectUser = async(connection, name,board_id)=>{
 
-    const selectUserQuery = `select id, name from user where name = "${name}" and board_id = ${board_id};`
+    const selectUserQuery = `select id, name, part from user where name = "${name}" and board_id = ${board_id};`
     const selectUserRow = await connection.query(selectUserQuery);
     return selectUserRow[0]; 
 }

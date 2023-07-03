@@ -68,7 +68,7 @@ export const PostLogIn = async(req,res)=>{
 
         const check = await FindUser(name,hashedPassword,board_id);
         const user_id = check.selectUserIdresult.id;
-
+        const user_part = check.selectUserIdresult.part;
         var user_name;
 
         if(check.selectUserIdresult){
@@ -90,7 +90,7 @@ export const PostLogIn = async(req,res)=>{
             return res.send(errResponse(baseResponse.LOGIN_NOT_PASSWORD))
         }
 
-        const token = await jwt.sign({user_id : user_id,board_id:board_id, user_name : user_name,password: user_password},process.env.TOKEN_SECRET,{expiresIn:'3days'})
+        const token = await jwt.sign({user_part:user_part, user_id : user_id,board_id:board_id, user_name : user_name,password: user_password},process.env.TOKEN_SECRET,{expiresIn:'3days'})
         console.log(token)
         if(token)    
             return res.send(SUCCESSResponse(baseResponse.SUCCESS,{token}))
