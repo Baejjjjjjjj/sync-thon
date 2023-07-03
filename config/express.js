@@ -13,4 +13,8 @@ app.use(methodOverride());
 app.use(cors());
 
 
+import boardRouter from "../board/routes/home/board"
+app.use('/board', boardRouter);
+
+
 export default app; 
