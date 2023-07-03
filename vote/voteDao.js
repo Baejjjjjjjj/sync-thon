@@ -12,6 +12,12 @@ export const insertFrontTool = async(connection,board_id)=>{
     return 0; 
 }
 
+export const selectAllVote = async(connection,board_id)=>{
+
+    const selectAllVoteQuery = `select * from tool as t, tool_option as o where t.id = o.tool_id and o.board_id = ${board_id};`
+    const [selectAllVoteRow] = await connection.query(selectAllVoteQuery);
+    return selectAllVoteRow;
+}
 
 export const selectFrontTool= async(connection,board_id)=>{
 
