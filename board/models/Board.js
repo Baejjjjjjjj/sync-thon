@@ -21,6 +21,7 @@ class Board {
         const now = new Date();
         const options = { timeZone: 'Asia/Seoul', hour12: false };
         const koreanTime = now.toLocaleString('en-US', options);
+        console.log(koreanTime)
 
         const insertBoardQuery = 'INSERT INTO board (board_name, explanation, password, created_at) VALUES (?, ?, ?, ?);'
         try {
