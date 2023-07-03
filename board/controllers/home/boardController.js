@@ -1,6 +1,7 @@
+"use strict";
+
 const express = require('express');
 import Board from '../../models/Board';
-
 
 
 const output = {
@@ -8,11 +9,7 @@ const output = {
     board : async (req, res) => {
         const board = new Board();
         const boardList = await board.getBoardList();
-        console.log(boardList);
-        res.json(res.data);
-    },
-    boardDetail : async (req, res) => {
-        
+        res.json(boardList);
     }
 };
 
@@ -21,7 +18,6 @@ const process = {
     write : async(req, res) => {
         const board = new Board();
         const boardWriteRes = await board.write(req.body);
-        console.log(boardWriteRes);
         res.send({ success : 200 });
     },
     passwordConfirm : async(req, res) => {
