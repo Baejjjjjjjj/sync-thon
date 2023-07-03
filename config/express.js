@@ -2,6 +2,7 @@ import express from "express"
 import compression from "compression"
 import methodOverride from "method-override"
 import cors from "cors"
+import userRouter from "../user/userRouter";
 const app = express(); //express 객체를 만들어 준다.
 
 app.use(compression());
@@ -11,6 +12,8 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(methodOverride());
 app.use(cors());
+
+app.use('/user',userRouter);
 
 
 export default app; 
