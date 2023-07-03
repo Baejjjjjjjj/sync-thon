@@ -95,6 +95,7 @@ export const PostLogIn = async(req,res)=>{
         }else if(user_part=="front"){
             user_part=1;
         }
+        console.log(user_part);
         const token = await jwt.sign({user_part:user_part, user_id : user_id,board_id:board_id, user_name : user_name,password: user_password},process.env.TOKEN_SECRET,{expiresIn:'3days'})
         console.log(token)
         if(token)    
