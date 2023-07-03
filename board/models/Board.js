@@ -38,6 +38,28 @@ class Board {
           throw error;
         }
       };
+
+      async passwordConfirm(data) {
+        const boardName = data.boardName;
+        const boardPassWord = data.password;
+
+        const boardNameQuery = "SELECT password FROM board WHERE board_name = ?;";
+        try {
+          const connection = await db.getConnection();
+          await connection.query('USE umc_hack');
+          const [rows] = await connection.query(boardNameQuery, data.boardName);
+          connection.release();
+
+          if (rows[0].password == boardPassWord) {
+            return {success: true, msg: "게시글 진입 성공"};
+          }
+          else {
+            return {success: false, msg: "비밀번호가 틀립니다."};
+          }
+        } catch (error) {
+          throw error;
+        }
+      };
 }
 
 export default Board;
