@@ -2,7 +2,6 @@ import db from '../../config/database'
 
 class Board {
     constructor(body) {
-        // this.body에는 req.params.id가 들어가있음
         this.body = body;
       }
       /** 게시글 리스트 가져오기 */
@@ -19,13 +18,17 @@ class Board {
       }
 
       async write(data) {
-        const insertBoardQuery = 'INSERT INTO board (board_name, explanation, password) VALUES (?, ?, ?);'
+        const now = new Date();
+        const options = { timeZone: 'Asia/Seoul', hour12: false };
+        const koreanTime = now.toLocaleString('en-US', options);
+
+        const insertBoardQuery = 'INSERT INTO board (board_name, explanation, password, created_at) VALUES (?, ?, ?, ?);'
         try {
           const connection = await db.getConnection();
           await connection.query('USE umc_hack');
       
           /** 게시글 정보 삽입*/ 
-          const [insertBoardResult] = await connection.query(insertBoardQuery, [data.title, data.content, data.password]);
+          const [insertBoardResult] = await connection.query(insertBoardQuery, [data.title, data.content, data.password, koreanTime]);
       
           const boardId = insertBoardResult.insertId;
       
@@ -47,7 +50,7 @@ class Board {
         try {
           const connection = await db.getConnection();
           await connection.query('USE umc_hack');
-          const [rows] = await connection.query(boardNameQuery, data.boardName);
+          const [rows] = await connection.query(boardNameQuery, boardName);
           connection.release();
 
           if (rows[0].password == boardPassWord) {
