@@ -16,4 +16,8 @@ app.use(cors());
 app.use('/user',userRouter);
 
 
+import boardRouter from "../board/routes/home/board"
+app.use('/board', boardRouter);
+
+
 export default app; 
