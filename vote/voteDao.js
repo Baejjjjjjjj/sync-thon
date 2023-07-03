@@ -5,6 +5,13 @@ export const selectVote = async(connection,board_id,part)=>{
     return selectVoteRow; 
 }
 
+export const selectTeamIdDao = async(connection,Questionname,board_id)=>{
+
+    const selectTeamIdDaoQuery = `select id from tool where question_name ="${Questionname}" and board_id = ${board_id};`;
+    const [selectTeamIdDaoRow] = await connection.query(selectTeamIdDaoQuery);
+    return selectTeamIdDaoRow
+}
+
 export const insertFrontTool = async(connection,board_id)=>{
 
     const insertFrontToolQuery = `insert tool(part,question_name,board_id) values(1,"Framework",${board_id});`+`insert tool(part,question_name,board_id) values(1,"CSSFramework",${board_id});`+ `insert tool(part,question_name,board_id) values(1,"PackageManager",${board_id});`

@@ -2,7 +2,7 @@ import baseResponse from "../config/baseResponseStatus";
 import { SUCCESSResponse, errResponse } from "../config/response";
 import jwt from "jsonwebtoken"
 import {retrievFinalVotes,retrievVotes} from "./voteProvider" 
-import {createBackEndvote,createFrontvote} from "./voteService"
+import {createOption,createBackEndvote,createFrontvote} from "./voteService"
 /*투표 정보 가지고 오기
 tool 정보와 그에 해당하는 tool option정보를 가지고 와야 한다. 
 join으로 가지고 올 것
@@ -49,3 +49,13 @@ try{
 }catch(err){console.log(err)}
 }
 
+export const postQuestionOption = async(req,res)=>{
+
+    try{
+        const {Questionname, board_id,option} = req.body;
+        const postQuestionOptionResult = await createOption(Questionname,board_id,option);
+        return res.send(SUCCESSResponse(baseResponse.SUCCESS,postQuestionOptionResult))
+
+
+    }catch(err){console.log(err)}
+}

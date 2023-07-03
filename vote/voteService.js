@@ -1,5 +1,5 @@
 import pool from "../config/database"
-import {insertCTVote,insertCloudingDefaultVote,insertEVote,insertDBToolVote,insertRVote,insertAPITVote,insertDBVote ,insertFrameVote,insertEditorDefaultVote,insertRemoteDefaultVote,insertAPISpecificationDefaultVote,insertDBToolDefaultVote,insertDBDefaultVote,insertBackendFrameworkDefaultVote,selectBackEndTool,insertBackEndTool,insertPackageDefaultVote,insertCSSDefaultVote,insertFrameworkDefaultVote,insertFrontTool,selectFrontTool,defaultvotefrontResult,insertDefaultVote,insertFVote, insertCVote,insertPVote} from "./voteDao"
+import {selectTeamIdDao,insertCTVote,insertCloudingDefaultVote,insertEVote,insertDBToolVote,insertRVote,insertAPITVote,insertDBVote ,insertFrameVote,insertEditorDefaultVote,insertRemoteDefaultVote,insertAPISpecificationDefaultVote,insertDBToolDefaultVote,insertDBDefaultVote,insertBackendFrameworkDefaultVote,selectBackEndTool,insertBackEndTool,insertPackageDefaultVote,insertCSSDefaultVote,insertFrameworkDefaultVote,insertFrontTool,selectFrontTool,defaultvotefrontResult,insertDefaultVote,insertFVote, insertCVote,insertPVote} from "./voteDao"
 export const createFrontvote = async(frameworkValue,CSSFrameworkValue,PackageMangerValue,board_id)=>{
 try{
     const connection = await pool.getConnection(async (conn) => conn);
@@ -24,7 +24,7 @@ try{
     const createCSSvoteResult = await insertCVote(connection,tool_id2,board_id,CSSFrameworkValue);
    
     const createPackagevoteResult = await insertPVote(connection,tool_id3,board_id,PackageMangerValue);
-    
+    connection.release();
     return 0;
 }
 catch(err){
@@ -74,10 +74,25 @@ try{
     const createEditorResult = await insertEVote(connection,tool_id6,board_id,Editor);
 
     const createCloudingResult = await insertCTVote(connection,tool_id7,board_id,Clouding);
-    
+    connection.release();
     return 0;
 }catch(err){
 
     console.log(err)
 }
+}
+
+export const createOption = async(Questionname,board_id,option)=>{
+
+    try{
+        const connection = await pool.getConnection(async (conn) => conn);
+        const selectTeamId = await selectTeamIdDao(connection,Questionname,board_id);
+        console.log(selectTeamId[0].id);
+
+
+        connection.release();
+    }catch(err){
+        console.log(err);
+    }
+
 }
