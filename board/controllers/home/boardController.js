@@ -2,6 +2,7 @@
 
 const express = require('express');
 import Board from '../../models/Board';
+import Search from '../../models/Search';
 
 
 const output = {
@@ -10,6 +11,11 @@ const output = {
         const board = new Board();
         const boardList = await board.getBoardList();
         res.json(boardList);
+    },
+    search : async (req, res) => {
+        const search = new Search();
+        const searchRes = await search.searchData(req.query);
+        res.json(searchRes);
     }
 };
 
