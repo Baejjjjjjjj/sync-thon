@@ -68,7 +68,7 @@ export const PostLogIn = async(req,res)=>{
 
         const check = await FindUser(name,hashedPassword,board_id);
         const user_id = check.selectUserIdresult.id;
-        const user_part = check.selectUserIdresult.part;
+        let user_part = check.selectUserIdresult.part;
         var user_name;
 
         if(check.selectUserIdresult){
@@ -89,7 +89,12 @@ export const PostLogIn = async(req,res)=>{
         if(!user_password){
             return res.send(errResponse(baseResponse.LOGIN_NOT_PASSWORD))
         }
-
+        
+        if(user_part=="backend"){
+            user_part=2;
+        }else if(user_part=="front"){
+            user_part=1;
+        }
         const token = await jwt.sign({user_part:user_part, user_id : user_id,board_id:board_id, user_name : user_name,password: user_password},process.env.TOKEN_SECRET,{expiresIn:'3days'})
         console.log(token)
         if(token)    
@@ -107,7 +112,7 @@ export const PostLogIn = async(req,res)=>{
 */
 
 export const GetUsers = async(req,res)=>{
-
+try{
     const {board_id} = req.body;
 
     if(typeof board_id =="undefined"){
@@ -117,12 +122,13 @@ export const GetUsers = async(req,res)=>{
     const GetUsersResult = await retrievUsers(board_id);
     console.log(GetUsersResult)
     return res.send(SUCCESSResponse(baseResponse.SUCCESS,GetUsersResult))
-
+}catch(err){console.log(err)}
 
 }
 
 export const GetUser = async(req,res)=>{
+    try{
     const {user_id} = req.verifiedToken;
     const GetUserResult = await retrieveUser(user_id);
-    return res.send(SUCCESSResponse(baseResponse.SUCCESS,GetUserResult))
+    return res.send(SUCCESSResponse(baseResponse.SUCCESS,GetUserResult))}catch(err){console.log(err)}
 }

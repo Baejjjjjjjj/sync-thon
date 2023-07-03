@@ -12,37 +12,31 @@ board_id가 있어야 한다.
 */
 
 export const GetVotes = async(req,res)=>{
+    try{
     const {board_id} = req.body;
     const {part} = req.verifiedToken;
     console.log("here"+board_id);
     const GetVotesResult = await retrievVotes(board_id,part);
     return res.send(SUCCESSResponse(baseResponse.SUCCESS,GetVotesResult));
+    }catch(err){console.log(err)}
 }
 /*투표하기
 
 */
 export const postFrontVote = async(req,res)=>{
-
+try{
     const {frameworkValue, CSSFrameworkValue, PackageMangerValue,board_id} = req.body;
     console.log(frameworkValue, CSSFrameworkValue, PackageMangerValue,board_id);
     const postBackEndVoteResult = await createFrontvote(frameworkValue,CSSFrameworkValue,PackageMangerValue,board_id);
     return res.send(SUCCESSResponse(baseResponse.SUCCESS,postBackEndVoteResult));
-
+}catch(err){console.log(err)}
 }
 
 export const postBackEndVote = async(req,res)=>{
-
+try{
     const {frameworkValue, DB, DBTool,API,Remote,Editor,Clouding,board_id} = req.body;
     const postBackEndVoteResult = await createBackEndvote(frameworkValue,DB, DBTool,API,Remote,Editor,Clouding,board_id);
     return res.send(SUCCESSResponse(baseResponse.SUCCESS,postBackEndVoteResult));
-
+}catch(err){console.log(err)}
 }
 
-export const postVoteQuestion = async(req,res)=>{
-
-
-}
-export const postVoteQuestionOption = async(req,res)=>{
-
-
-}
