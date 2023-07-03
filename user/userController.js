@@ -1,6 +1,7 @@
 import baseResponse from "../config/baseResponseStatus";
 import crypto from "crypto";
 import { SUCCESSResponse, errResponse } from "../config/response";
+import {retrievUsers} from "./userProvider";
 import {createUser,FindUser} from "./userService";
 import jwt from "jsonwebtoken"
 
@@ -66,7 +67,6 @@ export const PostLogIn = async(req,res)=>{
         const hashedPassword  = await crypto.createHash("sha512").update(password).digest("hex");
 
         const check = await FindUser(name,hashedPassword,board_id);
-        console.log("here"+check.selectUserIdPasswordresult)
         var user_name;
 
         if(check.selectUserIdresult){
@@ -84,7 +84,6 @@ export const PostLogIn = async(req,res)=>{
             return res.send(errResponse(baseResponse.LOGIN_NOT_JOIN))
         }
 
-        console.log("password"+user_password)
         if(!user_password){
             return res.send(errResponse(baseResponse.LOGIN_NOT_PASSWORD))
         }
@@ -98,5 +97,24 @@ export const PostLogIn = async(req,res)=>{
 
         console.log(err);
     }
+
+}
+
+/*
+특정 boardid에 속한 userid값을 전부 가지고 온다. 
+*/
+
+export const GetUsers = async(req,res)=>{
+
+    const {board_id} = req.body;
+
+    if(typeof board_id =="undefined"){
+        return res.send(errResponse(baseResponse.SIGNUP_EMPTY_BOARDID))
+    }
+
+    const GetUsersResult = await retrievUsers(board_id);
+    console.log(GetUsersResult)
+    return res.send(SUCCESSResponse(baseResponse.SUCCESS,GetUsersResult))
+
 
 }

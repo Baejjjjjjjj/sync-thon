@@ -18,3 +18,10 @@ export const selectUserPassword = async(connection, name,password,board_id)=>{
     const selectUserPasswordRow = await connection.query(selectUserPasswordQuery);
     return selectUserPasswordRow[0]; 
 }
+
+export const selectUsers = async(connection,board_id)=>{
+
+    const selectUsersQuery = `select name,part,github_id from user where board_id = ${board_id};`
+    const [selectUsersRow] = await connection.query(selectUsersQuery);
+    return selectUsersRow
+}
