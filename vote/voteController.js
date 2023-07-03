@@ -14,9 +14,9 @@ board_id가 있어야 한다.
 export const GetVotes = async(req,res)=>{
     try{
     const {board_id} = req.body;
-    const {part} = req.verifiedToken;
+    const {user_part} = req.verifiedToken;
     console.log("here"+board_id);
-    const GetVotesResult = await retrievVotes(board_id,part);
+    const GetVotesResult = await retrievVotes(board_id,user_part);
     return res.send(SUCCESSResponse(baseResponse.SUCCESS,GetVotesResult));
     }catch(err){console.log(err)}
 }
