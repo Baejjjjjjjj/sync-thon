@@ -3,7 +3,9 @@
 
 ### 개발 환경
 
-- Framework: Node.js
+Node.JS
+- language : ES6
+- Framework: express
 - database: Mysql
 
 ### 주요 기능
